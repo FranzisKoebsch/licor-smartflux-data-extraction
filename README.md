@@ -18,7 +18,7 @@ The script changes the file extension from `.ghg` to `.zip`, extracts the contai
 
 ## Input File Format
 The script performs a recursive file search, meaning that it finds all .ghg files in the `ìnput_dir`, whether they are lying plain in the root folder or tucked away in sub-directories.
-While the common SmartFlux data storage convention organizes `.ghg` files in monthly subfolders, the script is flexible to work with any nested folder structure. 
+While the common SmartFlux convention organizes `.ghg` files in monthly subfolders, the script is flexible to work with any nested folder structure. 
 **Set `input_dir` to the top-level directory containing the data you wish to process.** 
 
 ## How to use

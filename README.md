@@ -1,5 +1,5 @@
-# licor-smartflux-data-extraction
-Extracts field-processed flux information (fluxnet, full_output) from half hourly .ghg archives and merges them into a single consolidated .csv file
+# licor-smartflux-data-extraction (R-scripts)
+R scripts to extract field-processed flux information (fluxnet, full_output) from half hourly .ghg archives and to merge them into a single consolidated .csv file.
 
 **Background**
 LI-COR Eddy Covariance systems provide on-site flux-processing using the EddyPro(R) software on the SmartFlux module.
@@ -12,3 +12,6 @@ The script changes the file extension from .ghg to .zip, extracts the contained 
 - Handles multiple formats: Scripts are available for common EddyPro output types: fluxnet and full_output.
 - Robust processing: Capable of handling changing file formats (e.g., varying column numbers in flux files).
  
+**Dependencies**
+ - data.table: Barrett T, Dowle M, Srinivasan A, Gorecki J, Chirico M,  Hocking T, Schwendinger B, Krylov I (2025). _data.table: Extension of `data.frame`_. R package version 1.17.8.
+ *Note: The script includes an auto-install routine for the required repositories. If a package is not found on your system, it will be installed automatically.*

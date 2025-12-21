@@ -13,5 +13,5 @@ The script changes the file extension from .ghg to .zip, extracts the contained 
 - Robust processing: Capable of handling changing file formats (e.g., varying column numbers in flux files).
  
 **Dependencies**<br>
- - data.table: Barrett T, Dowle M, Srinivasan A, Gorecki J, Chirico M,  Hocking T, Schwendinger B, Krylov I (2025). _data.table: Extension of `data.frame`_. R package version 1.17.8.
+ - data.table: Barrett T, Dowle M, Srinivasan A, Gorecki J, Chirico M,  Hocking T, Schwendinger B, Krylov I (2025). _data.table: Extension of `data.frame`_. R package version 1.17.8.<br>
  *Note: The script includes an auto-install routine for the required repositories. If a package is not found on your system, it will be installed automatically.*

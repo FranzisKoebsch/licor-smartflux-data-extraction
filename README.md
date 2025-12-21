@@ -18,7 +18,7 @@ The script changes the file extension from .ghg to .zip, extracts the contained 
 
 **Input File Format**<br>
 The script adheres with the common SmartFlux data storage convention to organize.ghg files in monthly subfolders.
-The user must point the _input_dir to the parent folder containing the monthly subfolders. 
+The user must point the `input_dir` to the parent folder containing the monthly subfolders. 
 
 **Example Structure:**
 ```text

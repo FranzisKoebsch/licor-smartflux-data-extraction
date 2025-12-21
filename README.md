@@ -17,19 +17,9 @@ The script changes the file extension from `.ghg` to `.zip`, extracts the contai
  *Note: The script includes an auto-install routine for the required repositories. If a package is not found on your system, it will be installed automatically.*
 
 ## Input File Format
-The script adheres with the common SmartFlux data storage convention to organize `.ghg` files in monthly subfolders.
-**The user must point the `input_dir` to the parent folder containing the monthly subfolders.** 
-
-### Example Structure:
-```
-input_dir/
-├── 01/
-│   ├── 2025-01-24T103000_AIU-2640.ghg
-│   └── 2025-01-24T110000_AIU-2640.ghg
-├── 02/
-    ├── 2025-02-24T103000_AIU-2640.ghg
-    └── 2025-02-24T103000_AIU-2640.ghg
-```
+The script performs a recursive file search, meaning that it finds all .ghg files in the `ìnput_dir`, whether they are lying plain in the root folder or tucked away in sub-directories.
+While the common SmartFlux data storage convention organizes `.ghg` files in monthly subfolders, the script is flexible to work with any nested folder structure. 
+**Set `input_dir` to the top-level directory containing the data you wish to process.** 
 
 ## How to use
 - Open `licor_extraction_script.R` in *RStudio*.

@@ -15,3 +15,23 @@ The script changes the file extension from .ghg to .zip, extracts the contained 
 **Dependencies**<br>
  - data.table: Barrett T, Dowle M, Srinivasan A, Gorecki J, Chirico M,  Hocking T, Schwendinger B, Krylov I (2025). _data.table: Extension of `data.frame`_. R package version 1.17.8.<br>
  *Note: The script includes an auto-install routine for the required repositories. If a package is not found on your system, it will be installed automatically.*
+
+**Input File Format**<br>
+The script adheres with the common SmartFlux data storage convention to organize.ghg files in monthly subfolders.
+The user must point the 'input_dir' to the parent folder containing the monthly subfolders. 
+
+**Example Structure:**
+```text
+input/
+├── 2024-01/
+│   ├── file1.ghg
+│   └── file2.ghg
+├── 2024-02/
+│   ├── file3.ghg
+│   └── file4.ghg
+└── extra_data.ghg
+
+**How to use**<br>
+- Open licor_extraction_script.R in RStudio.
+- Configuration: Adjust the directories in section 1 USER SETTINGS.
+- Run: Execute the script. The rest of the process is fully automated.

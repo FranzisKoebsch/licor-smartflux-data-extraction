@@ -9,7 +9,8 @@ R scripts to extract field-processed flux information (*fluxnet*, *full_output*)
 The script changes the file extension from `.ghg` to `.zip`, extracts the contained flux information and merges it into a consolidated `.csv` file. **Original `.ghg` files remain untouched** as all processing is performed on copies.
 
 ## Key Features
-- **Handles multiple formats**: Scripts are available for common `EddyPro` output types: *fluxnet* and *full_output*.
+- **Handles multiple flux files**: Available for several common `EddyPro` output types: *fluxnet* and *full_output*.
+- **Structure-agnostic**:  Flexible to work with any nested folder structure.
 - **Robust processing**: Capable of handling changing file formats (e.g., varying column numbers in flux files).
  
 ## Dependencies

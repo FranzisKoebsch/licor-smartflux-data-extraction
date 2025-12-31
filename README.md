@@ -1,5 +1,5 @@
 # licor-smartflux-data-extraction (R-scripts)
-R scripts to extract field-processed flux information (*fluxnet*, *full_output*) from half hourly `.ghg` archives and to merge them into a single consolidated `.csv` file.
+Automated R pipeline to extract and merge field-processed flux data (*fluxnet*, *full_output*) from half hourly `.ghg` archives into a single `.csv` file.
 
 ## Background
 *LI-COR* Eddy Covariance systems provide on-site flux-processing using the *EddyPro(R)* software on the *SmartFlux* module.
@@ -9,16 +9,17 @@ R scripts to extract field-processed flux information (*fluxnet*, *full_output*)
 The script changes the file extension from `.ghg` to `.zip`, extracts the contained flux information and merges it into a consolidated `.csv` file. **Original `.ghg` files remain untouched** as all processing is performed on copies.
 
 ## Key Features
-- **Handles multiple flux files**: Available for several common `EddyPro` output types: *fluxnet* and *full_output*.
-- **Structure-agnostic**:  Flexible to work with any nested folder structure.
-- **Robust processing**: Capable of handling changing file formats (e.g., varying column numbers in flux files).
+- **Supports multiple EddyPro output files**: Currently handles *fluxnet* files, with support for other `EddyPro` output types currently in development.
+- **Deep folder search**:  Discovers `.ghg` files within any nested folder structure, eliminating the need for manual file organization.
+- **Robust error handling**: Gracefully skips corrupted and missing files, ensuring the script runs to completion.
+- **Adaptive data structure**: Automatically aligns data, even if table structure changes (e.g., due to addition or removal of a sensor).
  
 ## Dependencies
  - **data.table**: Barrett T, Dowle M, Srinivasan A, Gorecki J, Chirico M,  Hocking T, Schwendinger B, Krylov I (2025). _data.table: Extension of data.frame_. R package version 1.17.8.<br>
- *Note: The script includes an auto-install routine for the required repositories. If a package is not found on your system, it will be installed automatically.*
+ *Note: The script includes an auto-install routine and  for the required repositories. If a package is not found on your system, it will be installed automatically.*
 
 ## Input File Format
-The script performs a recursive file search, meaning that it finds all .ghg files in the `ìnput_dir`, whether they are lying plain in the root folder or tucked away in sub-directories.
+*EddyPro(R)* '.ghg' archives. The script performs a recursive file search, meaning that it finds all .ghg files in the `ìnput_dir`, whether they are lying plain in the root folder or tucked away in sub-directories.
 While the common SmartFlux convention organizes `.ghg` files in monthly subfolders, the script is flexible to work with any nested folder structure. 
 **Set `input_dir` to the top-level directory containing the data you wish to process.** 
 

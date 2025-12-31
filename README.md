@@ -9,7 +9,7 @@ Automated R pipeline to extract and merge field-processed flux data (*fluxnet*, 
 The script changes the file extension from `.ghg` to `.zip`, extracts the contained flux information and merges it into a consolidated `.csv` file. **Original `.ghg` files remain untouched** as all processing is performed on copies.
 
 ## Key Features
-- **Supports multiple EddyPro output files**: Currently handles *fluxnet* files, with support for other *EddyPro(R)* output types currently in development.
+- **Supports multiple *EddyPro(R)* output files**: Currently handles *fluxnet* files, with support for other *EddyPro(R)* output types currently in development.
 - **Deep folder search**:  Discovers `.ghg` files within any nested folder structure, eliminating the need for manual file organization.
 - **Robust error handling**: Gracefully skips corrupted and missing files, ensuring the script runs to completion.
 - **Adaptive data structure**: Automatically aligns data, even if table structure changes (e.g., due to addition or removal of a sensor).

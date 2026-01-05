@@ -26,10 +26,6 @@ The script changes the file extension from `.ghg` to `.zip`, extracts the contai
   <em>Fig 2: Log report with a list of missing (and corrupted) files along with changes in data structure</em>
 </p>
 
-## Dependencies
- - **data.table**: Barrett T, Dowle M, Srinivasan A, Gorecki J, Chirico M,  Hocking T, Schwendinger B, Krylov I (2025). _data.table: Extension of data.frame_. R package version 1.17.8.<br>
- *Note: The script includes an auto-install routine and  for the required repositories. If a package is not found on your system, it will be installed automatically.*
-
 ## Input File Format
 *EddyPro(R)* `.ghg` archives. The script performs a recursive file search, meaning that it finds all `.ghg` files in the `ìnput_dir`, whether they are lying plain in the root folder or tucked away in sub-directories.
 While the common *SmartFlux* convention organizes `.ghg` files in monthly subfolders, the script is flexible to work with any nested folder structure. 
@@ -39,3 +35,8 @@ While the common *SmartFlux* convention organizes `.ghg` files in monthly subfol
 - Open `ExtractFluxnetFromGHG.R` in *RStudio*.
 - **Configuration**: Adjust the directories in section 1 `USER SETTINGS`.
 - **Run**: Execute the script. The rest of the process is fully automated.
+
+## Dependencies
+ - **data.table**: Barrett T, Dowle M, Srinivasan A, Gorecki J, Chirico M,  Hocking T, Schwendinger B, Krylov I (2025). _data.table: Extension of data.frame_. R package version 1.17.8.<br>
+ *Note: The script includes an auto-install routine and  for the required repositories. If a package is not found on your system, it will be installed automatically.*
+

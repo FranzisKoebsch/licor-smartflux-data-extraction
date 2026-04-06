@@ -51,7 +51,12 @@ ghg_files <- list.files(input_dir, pattern = "\\.ghg$", recursive = TRUE, full.n
 
 if(length(ghg_files) == 0) {
   stop("No .ghg files found in: ", normalizePath(input_dir, winslash="/"))
+  
 } else {
+  # Sorts ghg_files by timestamp to enable chronological output structure
+  timestamp <- substring(basename(ghg_files), 1, 15)
+  timestamp <- as.POSIXct(timestamp, format="%Y-%m-%dT%H%M", tz="GMT")
+  ghg_files <- ghg_files[order(timestamp)]
   message(paste("Found", length(ghg_files), "ghg files. Starting extraction..."))
 }
 
@@ -61,7 +66,7 @@ extracted_files <- 0
 missing_files <- c()
 
 for(i in seq_along(ghg_files)){ 
-  
+
   current_ghg <- ghg_files[i]
   # Convert from .ghg to zip archive 
   # Conversion is performed on file copies in a temporary directory
@@ -73,21 +78,21 @@ for(i in seq_along(ghg_files)){
   
   # Unzip and extract Fluxnet file
   temp_data <- tryCatch({
-    
+  
     zip_contents <- unzip(zip_dir, list = TRUE)
     target_file <- zip_contents[grep("fluxnet", zip_contents$Name),]$Name[1]
-    
+
     # Extract Fluxnet file 
     if(!is.na(target_file)) {
       extracted_file <- unzip(zipfile = zip_dir, files = target_file, exdir=temp_dir)
       fread(extracted_file, fill = TRUE)
-    }
+      }
   }, # tryCatch() option for failed files
-  error = function(e) {
+    error = function(e) {
     message(paste("Skipping file due to error in:", basename(ghg_files[i])))
     failed_files <<- c(failed_files, basename(ghg_files[i]))
     return(NULL) 
-  }
+    }
   )
   # if Fluxnet file is available 
   if(!is.null(temp_data)) {
@@ -96,13 +101,13 @@ for(i in seq_along(ghg_files)){
     # Status message
     print(paste("Extracted ", basename(extracted_file)[1]))
   }
-  else{print(paste("No Fluxnet file found in", basename(current_ghg)))
-    missing_files <- c(missing_files, basename(ghg_files[i]))}
-  
+    else{print(paste("No Fluxnet file found in", basename(current_ghg)))
+      missing_files <- c(missing_files, basename(ghg_files[i]))}
+
   # Clean up temporary files
   remove_files <- list.files(temp_dir, full.names = TRUE)
   unlink(remove_files, recursive = TRUE)
-  
+
 }
 
 # ==============================================================================
@@ -110,12 +115,12 @@ for(i in seq_along(ghg_files)){
 # Bind by matching column names, fills empty columns with NA
 all_data_list <- all_data_list[which(sapply(all_data_list, Negate(is.null)))]
 if(length(all_data_list) >0){
-  final_data <- rbindlist(all_data_list, fill = TRUE, use.names = TRUE)
-  
-  # Write consolidated data into final csv file
-  write.csv(final_data, paste(output_dir, output_name, sep="/"))
-} else{message("No Fluxnet files found in GHG archives. No .csv created.")}
+final_data <- rbindlist(all_data_list, fill = TRUE, use.names = TRUE)
 
+# Write consolidated data into final csv file
+write.csv(final_data, paste(output_dir, output_name, sep="/"))
+} else{message("No Fluxnet files found in GHG archives. No .csv created.")}
+       
 # --- 5. Log Report  ---
 # Track modifications in file structure
 column_identical <- sapply(1:(length(all_data_list)-1), function(x) {
@@ -142,25 +147,30 @@ for(j in seq_along(column_change_log)){
     text_change_log <- paste0(text_change_log, "\nColumns added: ", paste(column_change_log[[j]]$columns_added, collapse=", "))}
   if(!is.null(column_change_log[[j]]$columns_removed)){
     text_change_log <- paste0(text_change_log, "\nColumns removed: ", paste(column_change_log[[j]]$columns_removed, collapse=", "))}
-}
+  }
 
+# ==============================================================================
 # Log Report
 log_report <- c(
-  "################### DATA EXTRACTION REPORT ###################",  
+"################### DATA EXTRACTION REPORT ###################",  
   paste0("Date: ", round(Sys.time(), units="mins")),
   paste0("Output File: ", paste(output_dir, output_name, sep="/")),
   paste0("Found GHG files: ", length(ghg_files)),
   paste0("Extracted ", "fluxnet ", "files: ", extracted_files),
   paste0("Missing ", "fluxnet ", "files: ", length(missing_files)),
   paste0("Corrupted ", "fluxnet ", "files: ", length(failed_files)),
-  "_____________________________________________________________",
-  if(length(missing_files)>0) {paste0("Missing ", "fluxnet ", "files: ", missing_files)},
-  "_____________________________________________________________",
-  if(length(failed_files)>0) {paste0("Corrupted ", "fluxnet ", "files: ", failes_files)},
-  "_____________________________________________________________",
-  "Changes in File Structure",
-  if(length(column_change_log[[1]])==0) {"None"}
+"_____________________________________________________________",
+if(length(missing_files)>0) {paste0("Missing ", "fluxnet ", "files: ", missing_files)},
+"_____________________________________________________________",
+if(length(failed_files)>0) {paste0("Corrupted ", "fluxnet ", "files: ", failed_files)},
+"_____________________________________________________________",
+"Changes in File Structure",
+if(length(column_change_log)==0) {"None"}
   else{text_change_log}
 )
-
 writeLines(log_report, paste0(output_dir, "/", sub(".csv", "", output_name), "_processing_log.txt"))
+
+
+
+
+

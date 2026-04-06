@@ -3,13 +3,13 @@ Automated R pipeline to extract and merge field-processed flux data (*fluxnet*, 
 
 ## Background
 *LI-COR* Eddy Covariance systems provide on-site flux processing using the *EddyPro(R)* software on the *SmartFlux* module.
-*SmartFlux* creates an individual `.ghg` archive for every 30 min flux averaging period. However, quality assessment pipelines and downstream analysis require a single, continuous dataset.
+*SmartFlux* creates an individual `.ghg` archive containing field-processed flux data for every 30 min flux averaging period. However, quality assessment pipelines and downstream analysis require a single, continuous dataset.
 
 ## How it works
-The script changes the file extension from `.ghg` to `.zip`, extracts the contained flux information and merges it into a single `.csv` file. **Original `.ghg` files remain untouched** as all processing is performed on temporary copies. The script also provides a **log file** documenting missing and corrupted files and tracks whenever the file structure is changing (e.g., because sensors were added/removed). 
+The script changes the file extension from `.ghg` to `.zip` and extracts the contained flux information. It merges the extracted file content into a single, consolidated `.csv` file while **preserving the original data structure and header information.** **Original `.ghg` files remain untouched** as all processing is performed on temporary copies. The script also provides a **log file** documenting missing and corrupted files and tracks whenever the file structure is changing (e.g., because sensors were added/removed). 
 
 ## Key Features
-- **Supports multiple *EddyPro(R)* output files**: Currently handles *fluxnet* files, with support for other *EddyPro(R)* output types currently in development.
+- **Supports multiple *EddyPro(R)* output files**: Currently handles *Fluxnet and Full Output* files, with support for other *EddyPro(R)* output types currently in development.
 - **Deep folder search**:  Discovers `.ghg` files within any nested folder structure, eliminating the need for manual file organization.
 - **Robust error handling**: Gracefully skips corrupted and missing files, ensuring the script runs to completion.
 - **Adaptive data structure**: Automatically aligns data, even if table structure changes (e.g., due to addition or removal of a sensor).
@@ -32,7 +32,7 @@ While the common *SmartFlux* convention organizes `.ghg` files in monthly subfol
 **Set `input_dir` to the top-level directory containing the data you wish to process.** 
 
 ## How to use
-- Open `ExtractFluxnetFromGHG.R` in *RStudio*.
+- Open `ExtractFluxnetFromGHG.R` or 'ExtractFullOutputFromGHG.R' in *RStudio*.
 - **Configuration**: Adjust the directories in section 1 `USER SETTINGS`.
 - **Run**: Execute the script. The rest of the process is fully automated.
 
